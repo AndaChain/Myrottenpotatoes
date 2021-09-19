@@ -1,0 +1,25 @@
+-#  This file is app/views/movies/index.html.haml
+%h1 All Movies
+
+= render :partial => 'login'
+
+%table#movies
+  %thead
+    %tr
+      %th Index
+      %th Movie Title
+      %th Rating
+      %th Release Date
+      %th More Info
+  %tbody
+    - @sort_movies.each_with_index do |movie, index|
+      %tr
+        %td= index
+        %td= movie.title 
+        %td= movie.rating
+        %td= movie.release_date
+        %td= link_to "More about #{movie.title}", movie_path(movie)
+        
+
+-# add to end of index.html.haml
+= link_to 'Add new movie', new_movie_path
