@@ -1,72 +1,58 @@
 # This file is app/controllers/movies_controller.rb
 class MoviesController < ApplicationController
-
-########## HOMEPAGE ##########
     def index
-      @movie = Movie.all
-      @sort_movies = @movie.sort_by(&:title)
+      @movies = Movie.all.sort_by { |name| name.title}
     end
 
-########## SHOW ##########
     def show
+        id = params[:id] # retrieve movie ID from URI route
         begin
-            id = params[:id]
-            @movie = Movie.find(id)
+            @movie = Movie.find(id) # look up movie by unique ID
+        rescue 
+            flash[:notice] = "No movie with the given ID could be found."
+            redirect_to movies_path
+        end
+        # @movie = Movie.find(id) # look up movie by unique ID
+        # will render app/views/movies/show.html.haml by default
+    end
 
-        rescue ActiveRecord::RecordNotFound => e
-            flash[:warning] = "No movie with the given ID could be found."
-            return redirect_to movies_path
+    def new
+        @movie = Movie.new
+        # default: render 'new' template
+    end 
+
+    def create
+        params.require(:movie)
+        permitted = params[:movie].permit(:title,:rating,:release_date,:description)
+        @movie = Movie.new(permitted)
+        if @movie.save
+            flash[:notice] = "#{@movie.title} was successfully created."
+            # redirect_to movies_path # redirect to the index action after a successful create
+            redirect_to action: "show", id: @movie.id # redirect to the show action after a successful create
+        else
+            render 'new' # note, 'new' template can access @movie's field values!
         end
     end
 
-########## CREATE NEW MOVIE ##########
-    def new
-		@movie = Movie.new
-        # default: render 'new' template
-    end
-
-    def create
-        @movie = Movie.create(params[:movie].permit(:title,:rating,:release_date,:description))
-        flash[:notice] = "#{@movie.title} was successfully created."
-    
-		if @movie.save
-		  flash[:notice] = "#{@movie.title} was successfully created."
-		  #redirect_to movies_path # go to index
-		  redirect_to movie_path(@movie) # go to infor
-		else
-		  render 'new' # note, 'new' template can access @movie's field values!
-		end
-
-	end
- 
-########## UPDATE MOVIE ##########
     def edit
         @movie = Movie.find params[:id]
     end
 
     def update
-		@movie = Movie.find params[:id]
-		  if @movie.update(params[:movie].permit(:title,:rating,:release_date,:description))
-			flash[:notice] = "#{@movie.title} was successfully updated."
-			#redirect_to movie_path(@movie)
-
-			# อะไรสักอย่าง
-			respond_to do |client_wants|
-				client_wants.html {  redirect_to movie_path(@movie)  } # as before
-				client_wants.xml  {  render :xml => @movie.to_xml  }
-			end
-			#########################
-		  else
-			render 'edit' # note, 'edit' template can access @movie's field values!
-		  end
+        @movie = Movie.find params[:id]
+        permitted = params[:movie].permit(:title,:rating,:release_date,:description)
+        if @movie.update(params[:movie])
+            flash[:notice] = "#{@movie.title} was successfully updated."
+            redirect_to movie_path(@movie) # redirect to the show action after a successful create
+        else
+            render 'edit' # note, 'edit' template can access @movie's field values!
+        end
     end
 
-########## DELETE MOVIE ##########
     def destroy
         @movie = Movie.find(params[:id])
         @movie.destroy
         flash[:notice] = "Movie '#{@movie.title}' deleted."
         redirect_to movies_path
     end
-
 end

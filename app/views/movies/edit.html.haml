@@ -1,9 +1,10 @@
 %h2 Edit Movie
- 
+
 = form_tag movie_path(@movie), :method => :put do
- 
-  = render :partial => 'partial'
+
+  = render :partial => 'movie_form'
   
+  %h3
   = submit_tag 'Save Changes'
-  
-= link_to 'Cancel', movie_path(@movie)
+%h3
+= link_to 'Cancel' , movie_path(@movie)
