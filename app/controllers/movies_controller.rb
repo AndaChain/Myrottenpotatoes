@@ -27,8 +27,8 @@ class MoviesController < ApplicationController
         @movie = Movie.new(permitted)
         if @movie.save
             flash[:notice] = "#{@movie.title} was successfully created."
-            # redirect_to movies_path # redirect to the index action after a successful create
-            redirect_to action: "show", id: @movie.id # redirect to the show action after a successful create
+            redirect_to movies_path # redirect to the index action after a successful create
+            #redirect_to action: "show", id: @movie.id # redirect to the show action after a successful create
         else
             render 'new' # note, 'new' template can access @movie's field values!
         end
