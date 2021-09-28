@@ -1,8 +1,13 @@
 # README
 ++++++++++++++++++++++++++++++++++++++++
+1. create file ".env"
+put this in it.
 
-.env file put your Google API
+GOOGLE_CLIENT_ID=XXXXXXXXXXXXXXXXXXXXx
+GOOGLE_CLIENT_SECRET=XXXXXXXXXXXXXXXXXXXXx
 
+2. change xxx to be your Google API
+3. 
 ++++++++++++++++++++++++++++++++++++++++
 This README would normally document whatever steps are necessary to get the
 application up and running.
