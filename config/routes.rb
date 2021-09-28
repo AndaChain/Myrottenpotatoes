@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  resources :movies
+  resources :movies do
+    resources :reviews
+  end
+
   post '/movies/search_tmdb' # Route that posts 'Search TMDb' form
   root :to => redirect('/movies')
 
