@@ -1,7 +1,13 @@
 # README
 ++++++++++++++++++++++++++++++++++++++++
 
-.env file put your Google API
+create file ".env" put this in it.
+
+GOOGLE_CLIENT_ID=XXXXXXXXXXXXXXXXXXXXx
+
+GOOGLE_CLIENT_SECRET=XXXXXXXXXXXXXXXXXXXXx
+
+change xxx to be your Google API
 
 ++++++++++++++++++++++++++++++++++++++++
 
