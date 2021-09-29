@@ -1,10 +1,17 @@
 # This file is app/controllers/movies_controller.rb
 class MoviesController < ApplicationController
+    before_action :has_moviegoer_and_movie, :except => [:index, :show]
+
+    def has_moviegoer_and_movie
+        unless @current_user
+          flash[:warning] = 'You must be logged in.'
+          redirect_to movies_path
+        end
+    end
+
     def index
       @movies = Movie.all.sort_by { |name| name.title}
     end
-
-
 
     def show
         id = params[:id] # retrieve movie ID from URI route
