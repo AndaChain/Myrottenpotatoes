@@ -19,10 +19,10 @@ class ReviewsController < ApplicationController
     
     public
     def new
-        @review = @movie.reviews.build
+        @review = @movie.reviews.build # initial of review data
     end
     def create
-        permitted = params[:review].permit(:potatoes, :comments, :moviegoer_id, :movie_id)
+        permitted = params[:review].permit(:potatoes, :comments, :moviegoer_id, :movie_id) # pack parameter to build
         @review = @movie.reviews.build(permitted)
         @current_user.reviews << @review #push into users review
         if @review.save
@@ -32,7 +32,6 @@ class ReviewsController < ApplicationController
 			render :action => 'new'
 		end
      end
-     
      
      
      
@@ -46,22 +45,22 @@ class ReviewsController < ApplicationController
 		#@current_user.reviews << @review #push into users review
         if @review
 			flash[:notice] = 'Review successfully update.'
-			redirect_to movie_path(@movie)
+			redirect_to movie_review_path(@movie)
 		else
 			render  'edit'
 		end
      end
      
+     
+     
     def show
         id = params[:movie_id]
         begin
-            @movie = Movie.find(id) # look up movie by unique ID
+            @movie = Movie.find(id)
         rescue 
             flash[:notice] = "No movie with the given ID could be found."
-            redirect_to movie_path(@movie)
+            redirect_to movie_path
         end
-        # @movie = Movie.find(id) # look up movie by unique ID
-        # will render app/views/movies/show.html.haml by default
     end
 
      
