@@ -1,28 +1,69 @@
 class ReviewsController < ApplicationController
     before_action :has_moviegoer_and_movie, :only => [:new, :create]
     protected
+    
+    
     def has_moviegoer_and_movie
       unless @current_user
         flash[:warning] = 'You must be logged in to create a review.'
-        redirect_to '/auth/twitter'
+        redirect_to movies_path
       end
-      unless (@movie = Movie.where(:id => params[:movie_id]))
+
+      unless (@movie = Movie.find(params[:movie_id]))
         flash[:warning] = 'Review must be for an existing movie.'
         redirect_to movies_path
       end
     end
-    public
     
+    
+    
+    public
     def new
-      @review = @movie.reviews.build
+        @review = @movie.reviews.build
+    end
+    def create
+        permitted = params[:review].permit(:potatoes, :comments, :moviegoer_id, :movie_id)
+        @review = @movie.reviews.build(permitted)
+        @current_user.reviews << @review #push into users review
+        if @review.save
+			flash[:notice] = 'Review successfully create.'
+			redirect_to movie_path(@movie)
+		else
+			render :action => 'new'
+		end
+     end
+     
+     
+     
+     
+     def edit
+		@movie = Movie.find(params[:movie_id])
+     end
+     def update
+		@movie = Movie.find(params[:movie_id])
+		permitted = params[:review].permit(:potatoes, :comments, :moviegoer_id, :movie_id)
+		@review = @movie.reviews.update(permitted)
+		#@current_user.reviews << @review #push into users review
+        if @review
+			flash[:notice] = 'Review successfully update.'
+			redirect_to movie_path(@movie)
+		else
+			render  'edit'
+		end
+     end
+     
+    def show
+        id = params[:movie_id]
+        begin
+            @movie = Movie.find(id) # look up movie by unique ID
+        rescue 
+            flash[:notice] = "No movie with the given ID could be found."
+            redirect_to movie_path(@movie)
+        end
+        # @movie = Movie.find(id) # look up movie by unique ID
+        # will render app/views/movies/show.html.haml by default
     end
 
-    def create
-      # since moviegoer_id is a protected attribute that won't get
-      # assigned by the mass-assignment from params[:review], we set it
-      # by using the << method on the association.  We could also
-      # set it manually with review.moviegoer = @current_user.
-      @current_user.reviews << @movie.reviews.build(params[:review])
-      redirect_to movie_path(@movie)
-    end
+     
+     
 end

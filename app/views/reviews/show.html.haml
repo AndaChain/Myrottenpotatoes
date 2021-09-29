@@ -1,0 +1,14 @@
+-# in app/views/movies/show.html.haml
+
+%h2 Review about #{@movie.title}
+
+%ul#details
+  %li
+    Potatoes:
+    = @movie.reviews.first.potatoes
+
+%h3 Comment:
+%p#comments= @movie.reviews.first.comments
+
+= link_to 'Edit Review', edit_movie_review_path(@movie)
+%div

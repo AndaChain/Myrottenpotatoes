@@ -4,6 +4,8 @@ class MoviesController < ApplicationController
       @movies = Movie.all.sort_by { |name| name.title}
     end
 
+
+
     def show
         id = params[:id] # retrieve movie ID from URI route
         begin
@@ -16,10 +18,14 @@ class MoviesController < ApplicationController
         # will render app/views/movies/show.html.haml by default
     end
 
+
+
     def new
         @movie = Movie.new
         # default: render 'new' template
     end 
+
+
 
     def create
         params.require(:movie)
@@ -34,14 +40,18 @@ class MoviesController < ApplicationController
         end
     end
 
+
+
     def edit
         @movie = Movie.find params[:id]
     end
 
+
+
     def update
         @movie = Movie.find params[:id]
         permitted = params[:movie].permit(:title,:rating,:release_date,:description)
-        if @movie.update(params[:movie])
+        if @movie.update(permitted)
             flash[:notice] = "#{@movie.title} was successfully updated."
             redirect_to movie_path(@movie) # redirect to the show action after a successful create
         else
@@ -49,12 +59,17 @@ class MoviesController < ApplicationController
         end
     end
 
+
+
     def destroy
         @movie = Movie.find(params[:id])
         @movie.destroy
         flash[:notice] = "Movie '#{@movie.title}' deleted."
         redirect_to movies_path
     end
+    
+    
+    
     # add to movies_controller.rb, anywhere inside
 	# 'class MoviesController < ApplicationController':
 	def search_tmdb
@@ -62,4 +77,7 @@ class MoviesController < ApplicationController
 	  flash[:warning] = "'#{params[:search_terms]}' was not found in TMDb."
 	  redirect_to movies_path
 	end
+	
+	
+	
 end
