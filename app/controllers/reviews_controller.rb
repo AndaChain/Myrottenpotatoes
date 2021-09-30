@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-    before_action :has_moviegoer_and_movie, :only => [:new, :create]
+    before_action :has_moviegoer_and_movie, :except => [:index]
     protected
     
     
@@ -15,43 +15,46 @@ class ReviewsController < ApplicationController
       end
     end
     
-    
-    
     public
+    
+    def index
+      @movie = Movie.find params[:movie_id]
+      @moviegoer = Moviegoer.all
+    end
+
     def new
         @review = @movie.reviews.build # initial of review data
     end
+    
     def create
         permitted = params[:review].permit(:potatoes, :comments, :moviegoer_id, :movie_id) # pack parameter to build
         @review = @movie.reviews.build(permitted)
         @current_user.reviews << @review #push into users review
         if @review.save
-			flash[:notice] = 'Review successfully create.'
-			redirect_to movie_path(@movie)
-		else
-			render :action => 'new'
-		end
-     end
+			    flash[:notice] = 'Review successfully create.'
+			    redirect_to movie_path(@movie)
+		    else
+			    render :action => 'new'
+		    end
+    end
      
-     
-     
+
      def edit
-		@movie = Movie.find(params[:movie_id])
+		    @movie = Movie.find params[:movie_id]
      end
+
      def update
-		@movie = Movie.find(params[:movie_id])
-		permitted = params[:review].permit(:potatoes, :comments, :moviegoer_id, :movie_id)
-		@review = @movie.reviews.update(permitted)
-		#@current_user.reviews << @review #push into users review
+		    @movie = Movie.find(params[:movie_id])
+		    permitted = params[:review].permit(:potatoes, :comments, :moviegoer_id, :movie_id)
+		    @review = @movie.reviews.update(permitted)
+		    #@current_user.reviews << @review #push into users review
         if @review
-			flash[:notice] = 'Review successfully update.'
-			redirect_to movie_review_path(@movie)
-		else
-			render  'edit'
-		end
-     end
-     
-     
+			    flash[:notice] = 'Review successfully update.'
+			    redirect_to movie_review_path(@movie)
+		    else
+			    render  'edit'
+		    end
+    end
      
     def show
         id = params[:movie_id]
@@ -62,7 +65,4 @@ class ReviewsController < ApplicationController
             redirect_to movie_path
         end
     end
-
-     
-     
 end

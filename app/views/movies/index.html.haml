@@ -13,6 +13,7 @@
     - @movies.each.with_index(1) do |movie, index|
       = render :partial=>'movie', :locals => {:movie => movie , :index => index} 
       -# https://stackoverflow.com/questions/6672454/passing-parameters-to-partial-view
+
 = link_to 'Add new movie', new_movie_path
 
 
