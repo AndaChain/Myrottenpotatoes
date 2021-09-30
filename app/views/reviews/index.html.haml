@@ -1,5 +1,11 @@
 %h2 All Review #{@movie.title}
 
-    
 
-= link_to 'Add Review', new_movie_review_path(@movie)
+
+
+
+
+-if @moviegoer_reviews
+  = link_to 'Show Review', movie_review_path(@movie, :id)
+-else
+  = link_to 'Add Review', new_movie_review_path(@movie)
