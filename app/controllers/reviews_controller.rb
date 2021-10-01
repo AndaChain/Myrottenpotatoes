@@ -19,7 +19,7 @@ class ReviewsController < ApplicationController
     
     def index
       @movie = Movie.find params[:movie_id]
-      @moviegoer = Moviegoer.all
+      @movie_reviews = @movie.reviews
     end
 
     def new
@@ -27,7 +27,7 @@ class ReviewsController < ApplicationController
     end
     
     def create
-        permitted = params[:review].permit(:potatoes, :comments, :moviegoer_id, :movie_id) # pack parameter to build
+        permitted = params[:reviews].permit(:potatoes, :comments, :moviegoer_id, :movie_id) # pack parameter to build
         @review = @movie.reviews.build(permitted)
         @current_user.reviews << @review #push into users review
         if @review.save
@@ -45,8 +45,9 @@ class ReviewsController < ApplicationController
 
      def update
 		    @movie = Movie.find(params[:movie_id])
-		    permitted = params[:review].permit(:potatoes, :comments, :moviegoer_id, :movie_id)
-		    @review = @movie.reviews.update(permitted)
+		    
+		    permitted = params[:reviews].permit(:potatoes, :comments, :moviegoer_id, :movie_id)
+		    @review = @current_user.reviews.update(permitted)
 		    #@current_user.reviews << @review #push into users review
         if @review
 			    flash[:notice] = 'Review successfully update.'
