@@ -1,11 +1,24 @@
 %h2 All Review #{@movie.title}
 
+- @movie_reviews.each do |t|
+  %h1
+    Name:
+    =Moviegoer.find(t.moviegoer.id).name
+  %div
+  
+  Potatoes:
+  = t.potatoes
+  %div
+  
+  Comments:
+  = t.comments
+  %div
 
 
-
-
-
+%div
 -if @moviegoer_reviews
   = link_to 'Show Review', movie_review_path(@movie, :id)
 -else
   = link_to 'Add Review', new_movie_review_path(@movie)
+%div
+= link_to 'Back to Movie Details', movie_path(@movie)
