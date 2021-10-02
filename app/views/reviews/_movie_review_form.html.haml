@@ -1,5 +1,8 @@
 %label How many potatoes:
-= select_tag 'reviews[potatoes]', options_for_select((1..5), @moviegoer_reviews.potatoes)
+-if @moviegoer_reviews
+  = select_tag 'reviews[potatoes]', options_for_select((1..5), @moviegoer_reviews.potatoes)
+-else
+  = select_tag 'reviews[potatoes]', options_for_select(1..5)
 
 %label Comments
 = text_area :reviews, :comments
