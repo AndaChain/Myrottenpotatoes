@@ -1,7 +1,5 @@
-= label :reviews, :potatoes, 'How many potatoes:'
-= select :reviews, :potatoes, Review.all_ratings
+%label How many potatoes:
+= select_tag 'reviews[potatoes]', options_for_select((1..5), @moviegoer_reviews.potatoes)
 
-= label :reviews, :comments, 'Comment'
-= text_area :reviews, :comments, size: "27x7"
-
-
+%label Comments
+= text_area :reviews, :comments

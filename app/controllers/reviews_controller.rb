@@ -41,6 +41,9 @@ class ReviewsController < ApplicationController
 
      def edit
 		    @movie = Movie.find params[:movie_id]
+		    
+		    @all_reviews_moive = Review.where(movie_id: params[:movie_id])
+		    @reviews = @all_reviews_moive.find_by_moviegoer_id(@current_user[:id]) # for REAL edit eiei
      end
 
      def update
