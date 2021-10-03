@@ -1,18 +1,25 @@
+
 - unless @movie.errors.empty?
   #warning
     Errors prevented this movie from being #{controller.action_name}d:
     %ul
       - @movie.errors.full_messages.each do |error|
         %li= error
-        
-= label :movie, :title, 'Title'
-= text_field :movie, 'title'
 
-= label :movie, :rating, 'Rating'
-= select :movie, :rating, Movie.all_ratings
 
-= label :movie, :release_date, 'Released On'
-= date_select :movie, :release_date, start_year: 1930
+%div{:style => "float:left; padding: 0px 0px;"}= label :movie, :title, 'Title : ' 
+%div{:style => "float:left; padding: 1px 18px;"}= text_field :movie, 'title'
 
-= label :movie, :description, 'Description'
-= text_area :movie, :description, size: "27x7"
+%div{:style => "float:left; padding: 0px 20px;"}= label :movie, :rating, 'Rating : '
+%div{:style => "float:left; padding: 1px 18px;"}= select :movie, :rating, Movie.all_ratings
+
+%div{:style => "float:left; padding: 0px 20px;"}= label :movie, :release_date, 'Released On : '
+%div{:style => "float:left; padding: 1px 18px;"}= date_select :movie, :release_date, start_year: 1930
+
+%br
+%br
+  %div{:style => "padding: 0px 0px;"}= label :movie, :description, 'Description : '
+  = text_area :movie, :description, size: "70x8"
+
+
+
