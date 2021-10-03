@@ -3,7 +3,7 @@
 = form_tag movie_reviews_path(@movie) do
 
   = render :partial => 'movie_review_form'
-  %h3
-  = submit_tag 'Create Review'
-%h3
-= link_to 'Cancel' , movie_path(@movie)
+  %h5
+    = submit_tag 'Create Review',  class: 'btn'
+    
+    = link_to 'Cancel' , movie_path(@movie),  class: 'btn'

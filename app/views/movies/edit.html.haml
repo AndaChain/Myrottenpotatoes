@@ -4,7 +4,6 @@
 
   = render :partial => 'movie_form'
   
-  %h2
-    = submit_tag 'Save Changes' ,  class: 'btn', target: "_blank"
-    = link_to 'Cancel' , movies_path ,  class: 'btn', target: "_blank"
- 
+  %h5
+    = submit_tag 'Save Changes' ,  class: 'btn'
+    = link_to 'Cancel' , movies_path ,  class: 'btn'
