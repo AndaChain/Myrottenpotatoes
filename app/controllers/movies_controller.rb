@@ -86,16 +86,18 @@ class MoviesController < ApplicationController
         flash[:notice] = params
         movie_id = params[:tmdb_id]
 		m = Movie.get_from_tmdb(movie_id)
+        l = Movie.releases_from_tmdb(movie_id)
 		@movie = Movie.new({
             :title => m["title"], 
-            :rating => "G",    
+            :rating => l['countries'][0]['certification'],    
             :release_date => m["release_date"], 
             :description => m["overview"]
 		})
         # @movie.save
 		if @movie.save
 			flash[:notice] = "'#{@movie.title}' was successfully created."
-			redirect_to new_movie_review_path(@movie)
+			# redirect_to new_movie_review_path(@movie)
+            redirect_to movies_path
         
 		end
 	end
