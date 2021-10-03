@@ -1,0 +1,28 @@
+-#  This file is app/views/movies/index.html.haml
+%h1 All Movies
+
+%table#search
+  %thead
+    %tr
+      %th Number
+      %th Movie Title
+      %th Rating
+      %th Release Date
+      %th More Info
+      
+  %tbody
+    - @search.each.with_index(1) do |movie, index|
+      %tr
+        %td= index
+        %td= movie['original_title']
+        %td= ''
+        %td= movie['release_date']
+        %td= movie['overview']
+        -# %td= link_to 'Add', new_movie_path
+
+        %td= link_to 'Add', movies_createfromtmdb_path(:tmdb_id => movie['id']), method: :post
+        -# %td=link_to "+ Add", movies_createfromtmdb_path(:tmdb_id => { :tmdb_id => movie['id'] })
+        -# = form_tag movies_createfromtmdb_path, :method => :post do
+        -#   %p.tmdb-add-in-db
+        -#     %input{:type=>"hidden",:name=>'tmdb_id', :value=>movie['id'] ,}
+        -#     = submit_tag 'Add this movie'

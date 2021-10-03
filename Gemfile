@@ -10,8 +10,13 @@ gem 'haml'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
-###########################################################
+##########################################################
 
+####################### Tmdb #############################
+gem "themoviedb"
+gem 'rails-controller-testing'
+gem 'factory_girl_rails'
+##########################################################
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.4'
 # Use sqlite3 as the database for Active Record
@@ -66,6 +71,8 @@ group :test do
   gem 'database_cleaner' # to clear Cucumber's test database between runs
   gem 'capybara'
   gem 'launchy'          # a useful debugging aid for user stories
+  gem 'rspec-rails'
+  gem 'guard-rspec'
 end
 
 ###########################################################################################

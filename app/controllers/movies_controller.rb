@@ -74,17 +74,49 @@ class MoviesController < ApplicationController
         flash[:notice] = "Movie '#{@movie.title}' deleted."
         redirect_to movies_path
     end
-    
-    
-    
-    # add to movies_controller.rb, anywhere inside
-	# 'class MoviesController < ApplicationController':
-	def search_tmdb
-	  # hardwire to simulate failure
-	  flash[:warning] = "'#{params[:search_terms]}' was not found in TMDb."
-	  redirect_to movies_path
+
+    def movies_with_filters
+        @movies = Movie.with_good_reviews(params[:threshold])
+        @movies = @movies.for_kids          if params[:for_kids]
+        @movies = @movies.with_many_fans    if params[:with_many_fans]
+        @movies = @movies.recently_reviewed if params[:recently_reviewed]
+    end
+
+    # or even DRYer:
+    # def movies_with_filters
+    #     @movies = Movie.with_good_reviews(params[:threshold])
+    #     %w(for_kids with_many_fans recently_reviewed).each do |filter|
+    #       @movies = @movies.send(filter) if params[filter]
+    #     end
+    #   end
+    # end
+
+    def search_tmdb
+        # hardwire to simulate failure
+        @movies = Movie.find_in_tmdb(params[:search_terms])
+        @search = Tmdb::Search.new
+        @search.query(params[:search_terms]) # the query to search against
+        @search = @search.fetch # makes request
+        @movie = Movie.new
+    end
+
+    def create_from_tmdb
+        flash[:notice] = params
+        movie_id = params[:tmdb_id]
+		m = Movie.get_from_tmdb(movie_id)
+		l = Movie.releases_from_tmdb(movie_id)
+		@movie = Movie.new({
+            :title => m["title"], 
+            :rating => l['countries'][0]['certification'],   
+            :release_date => m["release_date"], 
+            :description => m["overview"]
+		})
+        # @movie.save
+		if @movie.save
+			flash[:notice] = "'#{@movie.title}' was successfully created."
+			redirect_to new_movie_review_path(@movie)
+        
+		end
 	end
-	
-	
-	
+    
 end

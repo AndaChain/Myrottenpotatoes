@@ -1,8 +1,13 @@
 Feature: movies should appear in alphabetical order, not added order
 
+@omniauth_test_success
 Scenario: view movie list after adding 2 movies (imperative and non-DRY)
 
   Given I am on the RottenPotatoes home page
+
+  When I follow "Log In with Google"
+  Then I should see "Logged in successfully."
+  
   When I follow "Add new movie"
   Then I should be on the Create New Movie page
   When I fill in "Title" with "Zorro"

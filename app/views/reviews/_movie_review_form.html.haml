@@ -5,7 +5,5 @@
 -else
   = select_tag 'reviews[potatoes]', options_for_select(1..5)
 
-%br
-  %br
-    %label Comments
-    = text_area :reviews, :comments
+%label{:style => "padding: 0px 0px;"}= label :reviews, :comments, 'Comments : '
+= text_area :reviews, :comments

@@ -12,5 +12,9 @@ class ApplicationController < ActionController::Base
     #@man ||= @movie.reviews.find_by(moviegoer_id: session[:user_id])
     # redirect_to login_path and return unless @current_user
   end
+  require 'themoviedb'
+  def set_config
+    @configuration = Tmdb::Configuration.new
+  end
 
 end
