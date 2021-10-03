@@ -5,9 +5,9 @@
       - @movie.errors.full_messages.each do |error|
         %li= error
         
-= label :movie, :title, 'Title'
+= label :movie, :title, 'Title' 
 = text_field :movie, 'title'
-
+"
 = label :movie, :rating, 'Rating'
 = select :movie, :rating, Movie.all_ratings
 

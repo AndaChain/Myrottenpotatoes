@@ -6,6 +6,7 @@ class MoviesController < ApplicationController
 
     def show
         id = params[:id] # retrieve movie ID from URI route
+        # flash[:notice] = params
         begin
             @movie = Movie.find(id) # look up movie by unique ID
         rescue 
@@ -79,8 +80,24 @@ class MoviesController < ApplicationController
         @search.query(params[:search_terms]) # the query to search against
         @search = @search.fetch # makes request
         @movie = Movie.new
-        
-        # flash[:warning] = "'#{params[:search_terms]}' was not found in TMDb."
     end
 
+    def create_from_tmdb
+        flash[:notice] = params
+        movie_id = params[:tmdb_id]
+		m = Movie.get_from_tmdb(movie_id)
+		@movie = Movie.new({
+            :title => m["title"], 
+            :rating => "G",    
+            :release_date => m["release_date"], 
+            :description => m["overview"]
+		})
+        # @movie.save
+		if @movie.save
+			flash[:notice] = "'#{@movie.title}' was successfully created."
+			redirect_to new_movie_review_path(@movie)
+        
+		end
+	end
+    
 end
