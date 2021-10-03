@@ -6,7 +6,7 @@
 
   %label{:for => 'search_terms'} Search Terms
   = text_field_tag 'search_terms'
-  = submit_tag 'Search' ,  class: 'btns', target: "_blank"
+  = submit_tag 'Search' ,  class: 'btns'
 
 %h1 All Movies
 
@@ -23,7 +23,7 @@
       = render :partial=>'movie', :locals => {:movie => movie , :index => index} 
       -# https://stackoverflow.com/questions/6672454/passing-parameters-to-partial-view
 %h5
-  = link_to 'Add new movie', new_movie_path ,  class: 'btn', target: "_blank"
+  = link_to 'Add new movie', new_movie_path ,  class: 'btn'
 
 
 
