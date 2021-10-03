@@ -79,7 +79,7 @@ class MoviesController < ApplicationController
         @search = Tmdb::Search.new
         @search.query(params[:search_terms]) # the query to search against
         @search = @search.fetch # makes request
-        @movie = Movie.new
+        # @movie = Movie.newal
     end
 
     def create_from_tmdb
