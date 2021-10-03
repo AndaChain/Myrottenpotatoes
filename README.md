@@ -1,14 +1,15 @@
 # README
-++++++++++++++++++++++++++++++++++++++++
-1. create file ".env"
-put this in it.
+- touch .env
+- put this code
 
-GOOGLE_CLIENT_ID=XXXXXXXXXXXXXXXXXXXXx
-GOOGLE_CLIENT_SECRET=XXXXXXXXXXXXXXXXXXXXx
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-2. change xxx to be your Google API
-3. 
-++++++++++++++++++++++++++++++++++++++++
+GOOGLE_CLIENT_ID=
+
+GOOGLE_CLIENT_SECRET=
+  
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 

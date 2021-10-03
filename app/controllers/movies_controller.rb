@@ -28,7 +28,7 @@ class MoviesController < ApplicationController
         if @movie.save
             flash[:notice] = "#{@movie.title} was successfully created."
             # redirect_to movies_path # redirect to the index action after a successful create
-            redirect_to action: "show", id: @movie.id # redirect to the show action after a successful create
+            redirect_to movies_path # redirect to the show action after a successful create
         else
             render 'new' # note, 'new' template can access @movie's field values!
         end
@@ -41,7 +41,7 @@ class MoviesController < ApplicationController
     def update
         @movie = Movie.find params[:id]
         permitted = params[:movie].permit(:title,:rating,:release_date,:description)
-        if @movie.update(params[:movie])
+        if @movie.update(permitted)
             flash[:notice] = "#{@movie.title} was successfully updated."
             redirect_to movie_path(@movie) # redirect to the show action after a successful create
         else
@@ -55,4 +55,29 @@ class MoviesController < ApplicationController
         flash[:notice] = "Movie '#{@movie.title}' deleted."
         redirect_to movies_path
     end
+
+    def movies_with_filters
+        @movies = Movie.with_good_reviews(params[:threshold])
+        @movies = @movies.for_kids          if params[:for_kids]
+        @movies = @movies.with_many_fans    if params[:with_many_fans]
+        @movies = @movies.recently_reviewed if params[:recently_reviewed]
+    end
+
+    # or even DRYer:
+    # def movies_with_filters
+    #     @movies = Movie.with_good_reviews(params[:threshold])
+    #     %w(for_kids with_many_fans recently_reviewed).each do |filter|
+    #       @movies = @movies.send(filter) if params[filter]
+    #     end
+    #   end
+    # end
+
+    def search_tmdb
+        # hardwire to simulate failure
+        @movies = Movie.find_in_tmdb(params[:search_terms])
+        flash[:warning] = "'#{params[:search_terms]}' was not found in TMDb."
+        
+        # redirect_to movies_search_tmdb_path(@movies)
+    end
+
 end

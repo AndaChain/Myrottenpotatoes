@@ -1,0 +1,3 @@
+class TmdbController < ActionController
+
+end
