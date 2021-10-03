@@ -75,7 +75,7 @@ class MoviesController < ApplicationController
 
     def search_tmdb
         # hardwire to simulate failure
-        @movies = Movie.find_in_tmdb(params[:search_terms])
+        # @movies = Movie.find_in_tmdb(params[:search_terms])
         @search = Tmdb::Search.new
         @search.query(params[:search_terms]) # the query to search against
         @search = @search.fetch # makes request
@@ -96,7 +96,7 @@ class MoviesController < ApplicationController
         # @movie.save
 		if @movie.save
 			flash[:notice] = "'#{@movie.title}' was successfully created."
-			# redirect_to new_movie_review_path(@movie)
+			redirect_to new_movie_review_path(@movie)
             # redirect_to movies_path
         
 		end

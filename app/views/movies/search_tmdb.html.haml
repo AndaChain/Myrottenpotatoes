@@ -15,7 +15,7 @@
       %tr
         %td= index
         %td= movie['original_title']
-        %td= ''
+        %td= Tmdb::Movie.releases(movie['id'])['countries'][0]['certification']
         %td= movie['release_date']
         %td= movie['overview']
         -# %td= link_to 'Add', new_movie_path
