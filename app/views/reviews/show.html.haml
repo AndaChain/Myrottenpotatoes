@@ -6,7 +6,7 @@
 %h3 Comment:
 %p#:comments=@moviegoer_reviews.comments
 
-= link_to 'Edit Review', edit_movie_review_path(@movie)
-%div
-
-= link_to 'Back to All reviews movie', movie_reviews_path(@movie)
+%h5
+    = link_to 'Edit Review', edit_movie_review_path(@movie),  class: 'btn'
+%h5     
+    = link_to 'Back to All reviews movie', movie_reviews_path(@movie),  class: 'btn'

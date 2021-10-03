@@ -8,9 +8,11 @@
 
   %body
     %h1
-      = render :partial => 'movies/login_form'
+     
     %h3#banner
       = link_to 'RottenPotatoes', movies_path
+    %h4
+      = render :partial => 'movies/login_form'
     - if flash[:notice]
       #notice.message= flash[:notice]
     - elsif flash[:warning]
