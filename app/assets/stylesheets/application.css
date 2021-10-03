@@ -23,7 +23,7 @@ html, body {
     background: White;
     color: DarkSlateGrey;
     font-family: Tahoma, Verdana, sans-serif;
-    font-size: 10pt;
+    font-size: 12pt;
   }
   div#main {
     margin: 0;
@@ -31,12 +31,12 @@ html, body {
   }
   a {
     background: transparent;
-    color: maroon;
+    color: black;
     text-decoration: underline;
     font-weight: bold;
   }
   h1 {
-    color: maroon;
+    color: black;
     font-size: 150%;
     font-style: italic;
     display: block;
@@ -44,7 +44,10 @@ html, body {
     border-bottom: 1px solid DarkSlateGrey;
   }
   h2 {
-    color: maroon;
+    background: transparent;
+    color: black;
+    text-align: center;
+    font-weight: bold;
   }
   h1.title {
     margin: 0 0 1em;
@@ -54,33 +57,59 @@ html, body {
     border-bottom: 4px solid gold;
     font-size: 2em;
     font-style: normal;
+    
   }
   h3#banner a{
-    color: maroon;
+    color: black;
     font-size: 200%;
     margin-left: 20px;
     text-decoration: none;
   }
   h3#banner a:hover{
-    border-bottom: 3px solid maroon;
+    border-bottom: 3px solid black;
+  }
+  h4{
+    position: absolute;
+    top: 15px;
+    right: 30px;
+    width: 300px;
+    height: 200px;
+    font-size: 1em;
+    text-align: right;
+  }
+  h5{
+    color: black;
+    font-size: 140%;
+    font-style: normal;
+    display: block;
+    width: 100%;
+  }
+  p.a{
+    color: black;
+    font-size: 110%;
+    font-style: normal;
+    display: block;
   }
   table#movies {
     margin: 10px;
     border-collapse: collapse;
     width: 100%;
+    font-size: 20px;
     border-bottom: 2px solid black;
   }
   table#movies th {
     border: 2px solid white;
+    color: white;
     font-weight: bold;
-    background-color: wheat;
+    background-color: black;
   }
   table#movies th, table#movies td {
     padding: 4px;
     text-align: left;
   }
+  table#movies tr:nth-child(even){background-color: #f2f2f2c5;}
   table#movies tr:hover {
-    background-color: yellow;
+    background-color: rgba(202, 202, 202, 0.657);
   }
   #notice, #warning {
     background: rosybrown;
@@ -91,5 +120,45 @@ html, body {
     display: block;
     line-height: 25px;
     font-weight: bold;
-    color: maroon;
+    color: black;
+  }
+  .btn {
+    background-color:rgba(0, 0, 0, 0.705);
+    border: none;
+    color: white;
+    padding: 12px 26px;
+    text-align: center;
+    font-size: 70%;
+    margin: 4px 2px;
+    opacity: 1;
+    transition: 0.5s;
+  }
+  
+  .btn:hover {opacity: 0.6}
+
+  .btns {
+    background-color:rgba(0, 0, 0, 0.705);
+    border: none;
+    color: white;
+    padding: 6px 13px;
+    text-align: center;
+    font-size: 80%;
+    margin: 0px 0px;
+    opacity: 1;
+    transition: 0.5s;
+  }
+  
+  .btns:hover {opacity: 0.6}
+
+  .disc {
+    background-color:rgb(255, 255, 255);
+    color:rgb(0, 0, 0);
+    font-size: 14px;
+    width: 400px;
+    height: auto;
+    margin: 5px 5px;
+    padding: 7px 7px;
+    outline-style: solid;
+    outline-color: rgb(0, 0, 0);
+    outline-width: 4px;
   }
