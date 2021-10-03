@@ -1,17 +1,21 @@
-%h2 Add New Movie form TMDB
--# %table#movies
--#   %thead
--#     %tr
--#       %th Number
--#       %th Movie Title
--#       %th Rating
--#       %th Release Date
--#       %th More Info
+-#  This file is app/views/movies/index.html.haml
+%h1 All Movies
+
+%table#search
+  %thead
+    %tr
+      %th Number
+      %th Movie Title
+      %th Rating
+      %th Release Date
+      %th More Info
       
--#   %tbody
--#     - @movies.each.with_index(1) do |movie, index|
--#       %tr
--#         %td= index
--#         %td= movie.title 
--#         %td= movie.rating
--#         %td= movie.release_date
+  %tbody
+    - @search.each.with_index(1) do |movie, index|
+      %tr
+        %td= index
+        %td= movie['original_title']
+        %td= ''
+        %td= movie['release_date']
+        %td= movie['overview']
+        

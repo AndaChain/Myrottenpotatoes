@@ -15,5 +15,6 @@ Rails.application.routes.draw do
 
   post '/movies/search_tmdb'
 
-
+	# get '/movies/search_tmdb', :controller => 'movies', :action => 'search_tmdb'
+	# post '/movies/createfromtmdb', :controller => 'movies', :action => 'create_from_tmdb'
 end
