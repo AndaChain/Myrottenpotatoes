@@ -29,6 +29,24 @@ module NavigationHelpers
 	when /^the Create New Movie page/
 	  '/movies/new' 
 
+  when /^Log In with Google/
+    '/users/auth/google_oauth2/callback'
+
+  when /^the Review new page/
+    "/movies/#{Movie.last.id}/reviews/new"
+
+  when /^the Details about Adventure Time page/
+    '/movies/1'
+
+  when /^the All Review Adventure Time page/
+    '/movies/1/reviews'
+
+  when /^the New Review for Adventure Time page/
+    '/movies/1/reviews/new'
+
+  when /^the Review about Adventure Time page/
+    '/movies/1/reviews/id'
+
     else
       begin
         page_name =~ /^the (.*) page$/
@@ -43,3 +61,4 @@ module NavigationHelpers
 end
 
 World(NavigationHelpers)
+

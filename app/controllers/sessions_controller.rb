@@ -6,6 +6,7 @@ class SessionsController < ApplicationController
       user=Moviegoer.where(:provider => auth["provider"], :uid => auth["uid"]).first ||
         Moviegoer.create_with_omniauth(auth)
       session[:user_id] = user.id
+      flash[:notice] = 'Logged in successfully.'
       redirect_to movies_path
     end
     def destroy
@@ -16,5 +17,9 @@ class SessionsController < ApplicationController
     private
     def auth
         request.env['omniauth.auth']
+    end
+
+    def failure
+      redirect_to movies_path
     end
   end

@@ -12,3 +12,11 @@ Then /I should see "(.*)" before "(.*)" on (.*)/ do |string1, string2, path|
   regexp = /#{string1}.*#{string2}/m #  /m means match across newlines
   expect(page.body).to match(regexp)
 end
+
+Given /I have added "(.*)" with comments "(.*)"/ do |potatoes, comments|
+  steps %Q{
+    When I select "#{potatoes}" from "Potatoes"
+    And  I fill in "Comments" with "#{comments}"
+    And  I press "Create Review"
+  }
+end
